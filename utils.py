@@ -14,9 +14,9 @@
 
 import inspect
 import textwrap
-
+import pandas as pd
+import os
 import streamlit as st
-
 
 def show_code(demo):
     """Showing the code of the demo."""
@@ -26,3 +26,19 @@ def show_code(demo):
         st.markdown("## Code")
         sourcelines, _ = inspect.getsourcelines(demo)
         st.code(textwrap.dedent("".join(sourcelines[1:])))
+
+def get_df():
+    l0 = os.listdir("data/")
+
+    df = pd.DataFrame(l0,columns =["FileName"] )
+
+    df['Date1'] = df['FileName'].str.split("__").str[1]
+    df['Year'] = df['Date1'].str[:4]
+    df['Month'] = df['Date1'].str[4:6]
+    df['Day'] = df['Date1'].str[6:8]
+    df['Date'] = pd.to_datetime(df[['Year', 'Month', 'Day']]).dt.date
+    df.drop(['Date1', 'Year', 'Month', 'Day'],axis=1,inplace=True)
+    df.sort_values(by='Date',ascending=False, inplace=True, ignore_index=True)
+    df['City'] = df['FileName'].str.split("__").str[0]
+    
+    return(df)
