@@ -10,7 +10,7 @@ import utils
 def jaipur():
     st.set_page_config(
         page_title="Jaipur",
-        page_icon="🌅",
+        page_icon="🏰",
     )
     df = utils.get_df()
     df2 = df.loc[df['City']=='Jaipur']
