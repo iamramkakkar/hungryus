@@ -50,7 +50,7 @@ def run():
             with col3:
                 st.image("data/"+l_filenames[i+2])
         except Exception as e:
-            st.write(e)
+            print()
 
 if __name__ == "__main__":
     run()
