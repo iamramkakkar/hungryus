@@ -35,7 +35,7 @@ def run():
     range_selected = st.slider("Select a range of date",
               dt.date(2019, 1, 8),
               dt.date(2024, 12, 31),
-              (dt.date(2022, 7, 1),dt.date(2022, 12, 1)))
+              (dt.date(2019, 1, 8),dt.date(2024, 12, 31)))
     
     col1, col2, col3 = st.columns(3)
 
