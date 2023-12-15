@@ -14,6 +14,7 @@ def jaipur():
     )
     df = utils.get_df()
     df2 = df.loc[df['City']=='Jaipur']
+    st.dataframe(df2)
     col1, col2, col3 = st.columns(3)
 
     l_filenames = list(df2['FileName'])
@@ -26,5 +27,5 @@ def jaipur():
             with col3:
                 st.image("data/"+l_filenames[i+2])
         except Exception as e:
-            print()
+            st.write(e)
 jaipur()
