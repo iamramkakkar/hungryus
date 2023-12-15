@@ -14,38 +14,44 @@
 
 import streamlit as st
 from streamlit.logger import get_logger
+import pandas as pd
+import time
+import os 
+import datetime as dt
+import utils
 
 LOGGER = get_logger(__name__)
 
 
 def run():
+    
     st.set_page_config(
-        page_title="Hello",
-        page_icon="👋",
+        page_title="HungryUS",
+        page_icon="😋",
     )
 
-    st.write("# Welcome to Streamlit! 👋")
+    st.write("# Welcome to Hungry US! 👋")
+    df = utils.get_df()
 
-    st.sidebar.success("Select a demo above.")
+    range_selected = st.sidebar.slider("Select a range of date",
+              dt.date(2019, 1, 1),
+              dt.date(2024, 12, 12),
+              (dt.date(2022, 7, 1),dt.date(2022, 12, 1)))
+    
+    col1, col2, col3 = st.columns(3)
 
-    st.markdown(
-        """
-        Streamlit is an open-source app framework built specifically for
-        Machine Learning and Data Science projects.
-        **👈 Select a demo from the sidebar** to see some examples
-        of what Streamlit can do!
-        ### Want to learn more?
-        - Check out [streamlit.io](https://streamlit.io)
-        - Jump into our [documentation](https://docs.streamlit.io)
-        - Ask a question in our [community
-          forums](https://discuss.streamlit.io)
-        ### See more complex demos
-        - Use a neural net to [analyze the Udacity Self-driving Car Image
-          Dataset](https://github.com/streamlit/demo-self-driving)
-        - Explore a [New York City rideshare dataset](https://github.com/streamlit/demo-uber-nyc-pickups)
-    """
-    )
-
+    df2 = df.loc[(df['Date']>range_selected[0]) & (df['Date']<range_selected[1])]
+    l_filenames = list(df2['FileName'])
+    for i in range(0,len(l_filenames),3):
+        try:
+            with col1:
+                st.image("data/"+l_filenames[i])
+            with col2:
+                st.image("data/"+l_filenames[i+1])
+            with col3:
+                st.image("data/"+l_filenames[i+2])
+        except Exception as e:
+            print()
 
 if __name__ == "__main__":
     run()
