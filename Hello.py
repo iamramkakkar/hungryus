@@ -32,7 +32,7 @@ def run():
     
     df = utils.get_df()
 
-    range_selected = st.slider("Select a range of date",
+    range_selected = st.sidebar.slider("Select a range of date",
               dt.date(2019, 1, 8),
               dt.date(2024, 12, 31),
               (dt.date(2019, 1, 8),dt.date(2024, 12, 31)))
